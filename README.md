@@ -4,6 +4,7 @@ StudyForge AI is a fully client-side, browser-based AI Study Assistant powered b
 
 ## 🔗 Live Demo
 https://studyforge-labs.vercel.app/
+......................................................
 https://website-0-eng.github.io/StudyForge-AI/
 
 ---
