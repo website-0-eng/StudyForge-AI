@@ -3,7 +3,8 @@
 StudyForge AI is a fully client-side, browser-based AI Study Assistant powered by **Google Gemini API** and **PDF.js**. It transforms raw study PDFs (lecture slides, notes, textbook chapters) into active recall study guides—including structured summaries, interactive quizzes, 3D flashcards, and predicted exam sheets—entirely in your browser with zero server uploads.
 
 ## 🔗 Live Demo
-*Deploy this repository to Vercel or GitHub Pages in seconds for a live, secure link.*
+https://studyforge-labs.vercel.app/
+https://website-0-eng.github.io/StudyForge-AI/
 
 ---
 
