@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyForge AI | Free PDF to Study Guide, Quiz & Flashcard Generator</title>
+    
+    <!-- SVG Emoji Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    
+    <!-- SEO Optimization Meta Tags -->
+    <meta name="description" content="Transform any study PDF into custom summaries, interactive quizzes, active recall flashcards, and predicted exam questions instantly. Free client-side AI Study Assistant powered by Google Gemini. No login or backend required.">
+    <meta name="keywords" content="pdf study assistant, ai study guide generator, pdf to quiz converter, active recall flashcards, exam prep helper, free ai tutor, studyforge, gemini study tool, study pdf to mcq">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://studyforge.ai">
+    
+    <!-- Open Graph (Facebook / LinkedIn) SEO Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://studyforge.ai">
+    <meta property="og:title" content="StudyForge AI | Free PDF to Study Guide, Quiz & Flashcard Generator">
+    <meta property="og:description" content="Generate active recall study materials from PDFs instantly with Gemini AI. Flashcards, interactive MCQs, exam predictions. 100% free & secure.">
+    
+    <!-- Twitter Cards SEO Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://studyforge.ai">
+    <meta name="twitter:title" content="StudyForge AI | Free PDF to Study Guide, Quiz & Flashcard Generator">
+    <meta name="twitter:description" content="Generate active recall study materials from PDFs instantly with Gemini AI. Flashcards, interactive MCQs, exam predictions. 100% free & secure.">
+
+    <!-- JSON-LD Structured Data Schema for SEO Google Rich Results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "StudyForge AI",
+      "url": "https://studyforge.ai",
+      "description": "Transform study PDFs into summaries, quizzes, flashcards, and exam sheets client-side.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "featureList": [
+        "Client-side text parsing",
+        "AI study summaries",
+        "Interactive multiple-choice quizzes",
+        "Active recall 3D flashcards",
+        "Predicted exam questions with answers"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for modern visuals -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF.js CDN for client-side PDF parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Markdown Parser (marked.js) for Summary formatting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+
+    <style>
+        /* Modern CSS Custom Properties / Design Tokens */
+        :root {
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1a1e36 0%, #0d0f1a 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.06);
+            --glass-card: rgba(13, 15, 26, 0.7);
+            
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.3);
+            --secondary: #a855f7;
+            --secondary-glow: rgba(168, 85, 247, 0.3);
+            --accent: #06b6d4;
+            
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-bright: #ffffff;
+            
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-lg: 20px;
+            --border-radius-md: 12px;
+            --border-radius-sm: 8px;
+        }
+
+        /* Base Resets & Typography */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-bright);
+            font-weight: 700;
+        }
+
+        /* Animated Ambient Background Glows */
+        .ambient-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--primary-glow);
+            filter: blur(120px);
+            z-index: -1;
+            pointer-events: none;
+            top: -100px;
+            left: 10%;
+            animation: floatGlow 15s infinite alternate ease-in-out;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: var(--secondary-glow);
+            filter: blur(100px);
+            z-index: -1;
+            pointer-events: none;
+            bottom: 10%;
+            right: 5%;
+            animation: floatGlow 20s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Layout & Main Container */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 45px;
+            height: 45px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px var(--primary-glow);
+        }
+
+        .brand-logo i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .brand-title {
+            font-size: 1.75rem;
+            background: linear-gradient(to right, var(--text-bright), #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--glass-hover);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-bright);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            color: white;
+        }
+
+        .btn-icon {
+            padding: 0.6rem;
+            border-radius: var(--border-radius-md);
+            aspect-ratio: 1;
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: var(--glass-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Settings / API Key bar */
+        .settings-bar {
+            display: none;
+            animation: slideDown 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .settings-bar.active {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .settings-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-text {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 0.75rem 1rem;
+            color: var(--text-bright);
+            font-family: inherit;
+            flex-grow: 1;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .input-text:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Drag & Drop Upload Zone */
+        .upload-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            border: 2px dashed var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.01);
+            text-align: center;
+        }
+
+        .upload-zone.dragover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+            transform: scale(1.01);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px var(--primary-glow));
+        }
+
+        .upload-text h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .upload-text p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .file-info {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: var(--border-radius-md);
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .file-details i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* Mode Selector Container */
+        .mode-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .mode-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .mode-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+        }
+
+        .mode-btn i {
+            font-size: 1.25rem;
+        }
+
+        .mode-btn:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            background: var(--glass-hover);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+            border-color: var(--primary);
+            color: var(--text-bright);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Generate Action Box */
+        .action-box {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 0.5rem;
+        }
+
+        /* Loading Skeleton & Spinner */
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            gap: 1.5rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            border-right-color: var(--secondary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .skeleton-block {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.02) 75%);
+            background-size: 200% 100%;
+            animation: loadingSkeleton 1.5s infinite;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .skeleton-title {
+            width: 60%;
+            height: 28px;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes loadingSkeleton {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Error Banner */
+        .error-banner {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error-banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Output View Container */
+        .output-container {
+            display: none;
+        }
+
+        /* Output View 1: Summary (Markdown bullets) */
+        .summary-view {
+            color: var(--text-main);
+        }
+
+        .summary-view h2, .summary-view h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .summary-view ul, .summary-view ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .summary-view li {
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-view blockquote {
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Output View 2: Interactive Quiz */
+        .quiz-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1rem;
+        }
+
+        .quiz-score-badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .quiz-question-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-bright);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quiz-option {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: left;
+            font-family: inherit;
+            color: var(--text-main);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quiz-option:hover:not(.disabled) {
+            background: var(--glass-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(4px);
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: var(--success) !important;
+            color: #d1fae5;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border-color: var(--error) !important;
+            color: #fee2e2;
+        }
+
+        .quiz-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .quiz-feedback {
+            display: none;
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quiz-feedback h4 {
+            color: var(--text-bright);
+            margin-bottom: 0.25rem;
+        }
+
+        .quiz-feedback p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Quiz Completion screen */
+        .quiz-completion {
+            text-align: center;
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .quiz-trophy {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(245, 158, 11, 0.3));
+        }
+
+        /* Output View 3: Flashcards */
+        .flashcards-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            perspective: 1000px;
+        }
+
+        .flashcard-wrapper {
+            width: 100%;
+            max-width: 480px;
+            height: 280px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #1e1b4b, #111827);
+            color: var(--text-bright);
+            font-size: 1.35rem;
+            font-weight: 600;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, #2e1065, #111827);
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            font-size: 1.15rem;
+        }
+
+        .flashcard-indicator {
+            position: absolute;
+            bottom: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Output View 4: Exam Prep */
+        .exam-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .exam-item {
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.01);
+            transition: var(--transition-smooth);
+        }
+
+        .exam-item:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .exam-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .exam-question {
+            font-weight: 600;
+            color: var(--text-bright);
+            font-size: 1.05rem;
+        }
+
+        .exam-toggle-icon {
+            transition: var(--transition-smooth);
+            color: var(--text-muted);
+        }
+
+        .exam-item.active .exam-toggle-icon {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .exam-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid transparent;
+        }
+
+        .exam-item.active .exam-answer {
+            max-height: 500px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .exam-answer-content {
+            padding: 1.25rem 1.5rem;
+            color: var(--text-main);
+            font-size: 0.975rem;
+        }
+
+        /* Slide-out History Drawer */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Modal Overlays (Guide/About) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 200;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .modal-content {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(13, 15, 26, 0.95);
+            border-left: 1px solid var(--glass-border);
+            z-index: 101;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(0);
+        }
+
+        .drawer-overlay.active + .drawer {
+            transform: translateX(-400px);
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .history-item:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .history-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .history-title {
+            font-weight: 600;
+            color: var(--text-bright);
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 1.5rem;
+        }
+
+        .history-mode-tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #c7d2fe;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .history-delete-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            padding: 0.25rem;
+        }
+
+        .history-delete-btn:hover {
+            color: var(--error);
+            transform: scale(1.1);
+        }
+
+        .empty-history {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Animations & Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Layout Updates */
+        @media (max-width: 768px) {
+            .mode-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .brand-title {
+                font-size: 1.5rem;
+            }
+            .brand-logo {
+                width: 38px;
+                height: 38px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient backdrop effects -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-2"></div>
+
+    <div class="container">
+        
+        <!-- App Header -->
+        <header>
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-info">
+                    <h1 class="brand-title">StudyForge AI</h1>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn" id="open-guide-btn" title="How It Works & Hosting Guide">
+                    <i class="fa-solid fa-circle-info"></i> Guide
+                </button>
+                <button class="btn" id="toggle-settings-btn" title="API Settings">
+                    <i class="fa-solid fa-key"></i> API Key
+                </button>
+                <button class="btn" id="open-history-btn">
+                    <i class="fa-solid fa-history"></i> Sessions
+                </button>
+            </div>
+        </header>
+
+        <!-- API Settings Drawer -->
+        <div class="glass-panel settings-bar" id="settings-panel">
+            <h4><i class="fa-solid fa-shield-halved"></i> Google Gemini API Settings</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                The application requires a Gemini API Key. You can update or replace it here:
+            </p>
+            <div class="settings-input-container" style="margin-bottom: 1rem;">
+                <input type="password" class="input-text" id="api-key-input" placeholder="Enter Gemini API Key..." />
+                <button class="btn btn-primary" id="save-key-btn">Save Key</button>
+            </div>
+
+            <!-- Rate Limit Estimator -->
+            <div class="rate-limit-estimator" style="border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                <h5 style="color: var(--text-bright); margin-bottom: 0.5rem;"><i class="fa-solid fa-gauge-high"></i> Estimated API Usage (Gemini Free Tier)</h5>
+                <div style="margin-bottom: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                        <span>Minute Limit (15 RPM)</span>
+                        <span id="rate-rpm-label">0 / 15 reqs</span>
+                    </div>
+                    <div class="progress-bar-container" style="height: 6px; background: rgba(255,255,255,0.02);">
+                        <div id="rate-rpm-bar" class="progress-bar-fill" style="width: 0%; background: var(--accent);"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                        <span>Daily Limit (1,000 RPD)</span>
+                        <span id="rate-rpd-label">0 / 1000 reqs</span>
+                    </div>
+                    <div class="progress-bar-container" style="height: 6px; background: rgba(255,255,255,0.02);">
+                        <div id="rate-rpd-bar" class="progress-bar-fill" style="width: 0%; background: var(--primary);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Upload Area -->
+        <div class="glass-panel" id="upload-panel">
+            <div class="upload-zone" id="drop-zone">
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;" />
+                <div class="upload-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div class="upload-text">
+                    <h3>Drag & Drop Study Document</h3>
+                    <p>Or click to browse from device (PDF only, up to 15MB)</p>
+                </div>
+            </div>
+
+            <!-- Uploaded File Info -->
+            <div class="file-info" id="file-info-container">
+                <div class="file-details">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <div>
+                        <h4 id="file-name-label">document.pdf</h4>
+                        <p id="file-size-label" style="font-size: 0.75rem; color: var(--text-muted);">2.4 MB</p>
+                    </div>
+                </div>
+                <button class="btn btn-icon" id="remove-file-btn" title="Remove Document" style="border: none; color: var(--error);">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Study Mode Panel -->
+        <div class="glass-panel mode-container" id="mode-panel" style="opacity: 0.5; pointer-events: none;">
+            <h3>Select Learning Mode</h3>
+            
+            <div class="mode-buttons">
+                <button class="mode-btn active" data-mode="summary">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>Summary</span>
+                </button>
+                <button class="mode-btn" data-mode="quiz">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Quiz</span>
+                </button>
+                <button class="mode-btn" data-mode="flashcards">
+                    <i class="fa-solid fa-clone"></i>
+                    <span>Flashcards</span>
+                </button>
+                <button class="mode-btn" data-mode="examprep">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Exam Prep</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Mode Options (Visible when Quiz mode is active) -->
+            <div id="quiz-options-container" style="display: none; animation: fadeIn 0.3s ease; margin-top: 1rem; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                <label style="font-weight: 600; color: var(--text-main); font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">
+                    <i class="fa-solid fa-sliders"></i> Number of Quiz Questions:
+                </label>
+                <div style="display: flex; gap: 0.5rem; max-width: 300px;">
+                    <button class="btn btn-primary q-count-btn" data-count="10">10 Qs</button>
+                    <button class="btn q-count-btn" data-count="20">20 Qs</button>
+                    <button class="btn q-count-btn" data-count="30">30 Qs</button>
+                </div>
+            </div>
+
+            <div class="action-box">
+                <button class="btn btn-primary" id="generate-btn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Session
+                </button>
+            </div>
+        </div>
+
+        <!-- Error Banner -->
+        <div class="error-banner" id="error-banner">
+            <div class="error-banner-content">
+                <div class="error-message">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="error-text">An error occurred. Please try again.</span>
+                </div>
+                <button class="btn btn-icon" id="dismiss-error-btn" style="border: none; background: none; color: inherit; padding: 0;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading State Panel -->
+        <div class="glass-panel loading-container" id="loading-panel">
+            <div class="spinner"></div>
+            <div style="width: 100%; text-align: center;">
+                <h4 style="margin-bottom: 0.5rem;" id="loading-status-title">Processing PDF Text...</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;" id="loading-status-desc">Reading pages. Please do not close this window.</p>
+            </div>
+            <div style="width: 100%; margin-top: 1rem;">
+                <div class="skeleton-block skeleton-title"></div>
+                <div class="skeleton-block"></div>
+                <div class="skeleton-block"></div>
+                <div class="skeleton-block" style="width: 80%;"></div>
+            </div>
+        </div>
+
+        <!-- Main Output Panel -->
+        <div class="glass-panel output-container" id="output-panel">
+            <div id="output-view-content">
+                <!-- Content injected dynamically via Javascript -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- History Slideout Drawer overlay and frame -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="drawer" id="history-drawer">
+        <div class="drawer-header">
+            <h3>Study History</h3>
+            <button class="btn btn-icon" id="close-history-btn" style="border: none; background: none;">
+                <i class="fa-solid fa-xmark" style="font-size: 1.25rem;"></i>
+            </button>
+        </div>
+        <div class="history-list" id="history-list-container">
+            <!-- Saved items populated dynamically -->
+        </div>
+    </div>
+
+    <!-- Guide Modal -->
+    <div class="modal-overlay" id="guide-overlay">
+        <div class="modal-content" id="guide-modal">
+            <button class="btn btn-icon" id="close-guide-modal-btn" style="position: absolute; top: 1.25rem; right: 1.25rem; border: none; background: none;" title="Close Guide">
+                <i class="fa-solid fa-xmark" style="font-size: 1.25rem;"></i>
+            </button>
+            <div style="border-bottom: 1px solid var(--glass-border); padding-bottom: 0.75rem;">
+                <h2><i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> Student User Guide & FAQs</h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem;">Learn how to use StudyForge AI to study smarter with active recall.</p>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.95rem; line-height: 1.6;">
+                <div>
+                    <h4 style="color: var(--text-bright); margin-bottom: 0.35rem;"><i class="fa-solid fa-gears" style="color: var(--accent);"></i> How to Use StudyForge AI</h4>
+                    <ol style="margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; color: var(--text-muted);">
+                        <li><strong style="color: var(--text-main);">Add your Gemini API Key:</strong> Click the "API Key" button in the header and paste your key.</li>
+                        <li><strong style="color: var(--text-main);">Upload Study Material:</strong> Drag and drop or browse any PDF document (lectures, notes, textbooks).</li>
+                        <li><strong style="color: var(--text-main);">Select Study Mode:</strong> Choose between Summary, Quiz, Flashcards, or Exam Prep.</li>
+                        <li><strong style="color: var(--text-main);">Generate Session:</strong> Let the AI process your document and create your interactive study deck!</li>
+                    </ol>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--text-bright); margin-bottom: 0.35rem;"><i class="fa-solid fa-key" style="color: var(--primary);"></i> How to Get a Free Gemini API Key</h4>
+                    <p style="color: var(--text-main); margin-bottom: 0.5rem;">Google Gemini API keys are 100% free for students and developers. To get one:</p>
+                    <ol style="margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; color: var(--text-muted);">
+                        <li>Go to the <a href="https://aistudio.google.com/" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">Google AI Studio Website <i class="fa-solid fa-up-right-from-square" style="font-size: 0.75rem;"></i></a>.</li>
+                        <li>Log in with any standard Google (Gmail) account.</li>
+                        <li>Click the blue <strong>"Get API Key"</strong> button at the top left.</li>
+                        <li>Click <strong>"Create API Key"</strong>, select a project, copy the generated key, and paste it into the app.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--text-bright); margin-bottom: 0.35rem;"><i class="fa-solid fa-user-shield" style="color: var(--success);"></i> Privacy & Data Security</h4>
+                    <p style="color: var(--text-main);">Your study files are processed entirely in your browser using PDF.js. Your document files are never uploaded to any external server. The extracted text is sent directly to Google's official Gemini endpoint. Your API key remains encrypted locally in your browser's <code>localStorage</code> and is never shared or sent to any third-party databases.</p>
+                </div>
+                
+                <div style="border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                    <h4 style="color: var(--text-bright); margin-bottom: 0.75rem;"><i class="fa-solid fa-circle-question" style="color: var(--secondary);"></i> Frequently Asked Questions (FAQ)</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div>
+                            <strong style="color: var(--text-bright); display: block; font-size: 0.9rem;">Q: Can I generate study flashcards and quizzes from a PDF for free?</strong>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Yes! StudyForge AI is completely free to use. By utilizing a developer API key, you gain direct access to AI endpoints without subscription rates or usage fees.</p>
+                        </div>
+                        <div>
+                            <strong style="color: var(--text-bright); display: block; font-size: 0.9rem;">Q: Does the app support active recall and spaced repetition?</strong>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Absolutely. Our Quiz and Flashcard modules are designed specifically around active recall theory, providing instant choice evaluation and interactive 3D flipcards to boost memory retention.</p>
+                        </div>
+                        <div>
+                            <strong style="color: var(--text-bright); display: block; font-size: 0.9rem;">Q: What is the maximum PDF file size limit?</strong>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">You can upload files up to 15MB. Very long documents are automatically optimized to fit within API context window limitations for faster generation.</p>
+                        </div>
+                        <div>
+                            <strong style="color: var(--text-bright); display: block; font-size: 0.9rem;">Q: How do I access my past generated study sessions?</strong>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">All sessions are automatically saved locally. Click the "Sessions" button in the top right header to toggle your local history drawer and revisit past decks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default API key configuration - Enter yours here if desired
+        const DEFAULT_API_KEY = "";
+        
+        // Initialize PDF.js worker using CDN
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // State Store
+        const state = {
+            apiKey: localStorage.getItem('studyforge_apikey') || DEFAULT_API_KEY,
+            extractedText: '',
+            fileName: '',
+            fileSize: '',
+            selectedMode: 'summary',
+            quizQuestionCount: 10,
+            activeSession: null, // Stores current generated data
+            history: JSON.parse(localStorage.getItem('studyforge_history')) || []
+        };
+
+        // DOM elements
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileInfoContainer = document.getElementById('file-info-container');
+        const fileNameLabel = document.getElementById('file-name-label');
+        const fileSizeLabel = document.getElementById('file-size-label');
+        const removeFileBtn = document.getElementById('remove-file-btn');
+        const modePanel = document.getElementById('mode-panel');
+        const generateBtn = document.getElementById('generate-btn');
+        const loadingPanel = document.getElementById('loading-panel');
+        const loadingStatusTitle = document.getElementById('loading-status-title');
+        const loadingStatusDesc = document.getElementById('loading-status-desc');
+        const errorBanner = document.getElementById('error-banner');
+        const errorText = document.getElementById('error-text');
+        const dismissErrorBtn = document.getElementById('dismiss-error-btn');
+        const outputPanel = document.getElementById('output-panel');
+        const outputViewContent = document.getElementById('output-view-content');
+        
+        // API Settings elements
+        const toggleSettingsBtn = document.getElementById('toggle-settings-btn');
+        const settingsPanel = document.getElementById('settings-panel');
+        const apiKeyInput = document.getElementById('api-key-input');
+        const saveKeyBtn = document.getElementById('save-key-btn');
+
+        // History Drawer elements
+        const openHistoryBtn = document.getElementById('open-history-btn');
+        const closeHistoryBtn = document.getElementById('close-history-btn');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const historyDrawer = document.getElementById('history-drawer');
+        const historyListContainer = document.getElementById('history-list-container');
+
+        // Guide Modal elements
+        const openGuideBtn = document.getElementById('open-guide-btn');
+        const closeGuideModalBtn = document.getElementById('close-guide-modal-btn');
+        const guideOverlay = document.getElementById('guide-overlay');
+
+        // --- Setup & Initializations ---
+        
+        // Set API key input value on load
+        apiKeyInput.value = state.apiKey;
+        updateRateLimitEstimator();
+
+        // Key Save Handler
+        saveKeyBtn.addEventListener('click', () => {
+            const val = apiKeyInput.value.trim();
+            state.apiKey = val;
+            if (val) {
+                localStorage.setItem('studyforge_apikey', val);
+                alert("API Key saved successfully!");
+            } else {
+                localStorage.removeItem('studyforge_apikey');
+                alert("API Key removed.");
+            }
+            settingsPanel.classList.remove('active');
+        });
+
+        // Key Panel Toggle Handler
+        toggleSettingsBtn.addEventListener('click', () => {
+            settingsPanel.classList.toggle('active');
+            updateRateLimitEstimator(); // Refresh bars on open
+        });
+
+        // --- Rate Limit Estimator Helpers ---
+        function checkEstimatedRateLimit() {
+            const timestamps = JSON.parse(localStorage.getItem('studyforge_request_timestamps') || '[]');
+            const now = Date.now();
+            const lastMinute = timestamps.filter(t => now - t < 60000);
+            const lastDay = timestamps.filter(t => now - t < 86400000);
+            
+            if (lastMinute.length >= 15) {
+                return { allowed: false, reason: "You have reached the estimated Free Tier limit of 15 requests per minute (RPM). Please wait a moment." };
+            }
+            if (lastDay.length >= 1000) {
+                return { allowed: false, reason: "You have reached the estimated Free Tier limit of 1,000 requests per day (RPD)." };
+            }
+            return { allowed: true };
+        }
+
+        function logRequest() {
+            let timestamps = JSON.parse(localStorage.getItem('studyforge_request_timestamps') || '[]');
+            timestamps.push(Date.now());
+            // Filter and keep only last 24h
+            const oneDayAgo = Date.now() - 86400000;
+            timestamps = timestamps.filter(t => t > oneDayAgo);
+            localStorage.setItem('studyforge_request_timestamps', JSON.stringify(timestamps));
+            updateRateLimitEstimator();
+        }
+
+        function updateRateLimitEstimator() {
+            const timestamps = JSON.parse(localStorage.getItem('studyforge_request_timestamps') || '[]');
+            const now = Date.now();
+            
+            const lastMinute = timestamps.filter(t => now - t < 60000);
+            const lastDay = timestamps.filter(t => now - t < 86400000);
+            
+            const rpmCount = lastMinute.length;
+            const rpdCount = lastDay.length;
+            
+            const rpmPct = Math.min((rpmCount / 15) * 100, 100);
+            const rpdPct = Math.min((rpdCount / 1000) * 100, 100);
+            
+            const rpmLabel = document.getElementById('rate-rpm-label');
+            const rpmBar = document.getElementById('rate-rpm-bar');
+            const rpdLabel = document.getElementById('rate-rpd-label');
+            const rpdBar = document.getElementById('rate-rpd-bar');
+
+            if (rpmLabel && rpmBar) {
+                rpmLabel.textContent = `${rpmCount} / 15 reqs`;
+                rpmBar.style.width = `${rpmPct}%`;
+                if (rpmCount >= 12) {
+                    rpmBar.style.backgroundColor = 'var(--error)';
+                } else if (rpmCount >= 8) {
+                    rpmBar.style.backgroundColor = 'var(--warning)';
+                } else {
+                    rpmBar.style.backgroundColor = 'var(--accent)';
+                }
+            }
+            
+            if (rpdLabel && rpdBar) {
+                rpdLabel.textContent = `${rpdCount} / 1,000 reqs`;
+                rpdBar.style.width = `${rpdPct}%`;
+                if (rpdCount >= 800) {
+                    rpdBar.style.backgroundColor = 'var(--error)';
+                } else if (rpdCount >= 500) {
+                    rpdBar.style.backgroundColor = 'var(--warning)';
+                } else {
+                    rpdBar.style.backgroundColor = 'var(--primary)';
+                }
+            }
+        }
+
+        // Drag & Drop event bindings
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        removeFileBtn.addEventListener('click', () => {
+            resetFileState();
+        });
+
+        // Mode Toggles
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const target = e.currentTarget;
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                target.classList.add('active');
+                state.selectedMode = target.dataset.mode;
+                
+                // Show/hide quiz options container
+                const quizOpts = document.getElementById('quiz-options-container');
+                if (state.selectedMode === 'quiz') {
+                    quizOpts.style.display = 'block';
+                } else {
+                    quizOpts.style.display = 'none';
+                }
+            });
+        });
+
+        // Quiz Question Count toggles
+        document.querySelectorAll('.q-count-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.q-count-btn').forEach(b => b.classList.remove('btn-primary'));
+                e.currentTarget.classList.add('btn-primary');
+                state.quizQuestionCount = parseInt(e.currentTarget.dataset.count);
+            });
+        });
+
+        // Dismiss Errors
+        dismissErrorBtn.addEventListener('click', () => {
+            errorBanner.style.display = 'none';
+        });
+
+        // History Drawer Toggle Actions
+        openHistoryBtn.addEventListener('click', () => {
+            renderHistoryDrawerList();
+            drawerOverlay.classList.add('active');
+        });
+
+        closeHistoryBtn.addEventListener('click', closeHistory);
+        drawerOverlay.addEventListener('click', closeHistory);
+
+        function closeHistory() {
+            drawerOverlay.classList.remove('active');
+        }
+
+        // Guide Modal Toggle Actions
+        openGuideBtn.addEventListener('click', () => {
+            guideOverlay.classList.add('active');
+        });
+
+        closeGuideModalBtn.addEventListener('click', () => {
+            guideOverlay.classList.remove('active');
+        });
+
+        guideOverlay.addEventListener('click', (e) => {
+            if (e.target === guideOverlay) {
+                guideOverlay.classList.remove('active');
+            }
+        });
+
+        // --- File Reading & Processing ---
+
+        function handleFileSelect(file) {
+            if (file.type !== 'application/pdf') {
+                showError("Invalid file type. Please select a valid PDF document.");
+                return;
+            }
+            if (file.size > 15 * 1024 * 1024) {
+                showError("Document is too large. Max size allowed is 15MB.");
+                return;
+            }
+
+            state.fileName = file.name;
+            state.fileSize = formatBytes(file.size);
+
+            fileNameLabel.textContent = state.fileName;
+            fileSizeLabel.textContent = state.fileSize;
+
+            dropZone.style.display = 'none';
+            fileInfoContainer.style.display = 'flex';
+
+            // Start extracting text from PDF file client-side
+            extractTextFromPDF(file);
+        }
+
+        function resetFileState() {
+            state.extractedText = '';
+            state.fileName = '';
+            state.fileSize = '';
+            fileInput.value = '';
+            
+            dropZone.style.display = 'flex';
+            fileInfoContainer.style.display = 'none';
+
+            // Disable Mode interactions
+            modePanel.style.opacity = '0.5';
+            modePanel.style.pointerEvents = 'none';
+            outputPanel.style.display = 'none';
+        }
+
+        // PDF Text Extraction using PDF.js
+        async function extractTextFromPDF(file) {
+            showLoading(true, "Parsing PDF Document", "Loading file content and metadata...");
+            errorBanner.style.display = 'none';
+
+            try {
+                const reader = new FileReader();
+                reader.onload = async function() {
+                    try {
+                        const typedarray = new Uint8Array(this.result);
+                        const pdf = await pdfjsLib.getDocument({data: typedarray}).promise;
+                        let textAccumulator = '';
+                        const totalPages = pdf.numPages;
+
+                        for (let i = 1; i <= totalPages; i++) {
+                            updateLoadingMessage(`Extracting Text`, `Reading page ${i} of ${totalPages}...`);
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items.map(item => item.str).join(' ');
+                            textAccumulator += pageText + '\n\n';
+                        }
+
+                        state.extractedText = textAccumulator.trim();
+
+                        if (!state.extractedText) {
+                            throw new Error("No readable text found in the PDF. It might be scanned or image-only.");
+                        }
+
+                        showLoading(false);
+                        // Enable selection modes
+                        modePanel.style.opacity = '1';
+                        modePanel.style.pointerEvents = 'auto';
+                    } catch (err) {
+                        showLoading(false);
+                        resetFileState();
+                        showError("Failed to parse PDF: " + err.message);
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            } catch (err) {
+                showLoading(false);
+                resetFileState();
+                showError("File read failed: " + err.message);
+            }
+        }
+
+        // --- Gemini API Call Integration ---
+
+        generateBtn.addEventListener('click', async () => {
+            if (!state.extractedText) {
+                showError("Please upload a PDF document first.");
+                return;
+            }
+            if (!state.apiKey) {
+                showError("API Key is missing. Please set your Google Gemini API Key in the settings panel above.");
+                settingsPanel.classList.add('active');
+                settingsPanel.scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            // Estimator Check
+            const limitCheck = checkEstimatedRateLimit();
+            if (!limitCheck.allowed) {
+                showError(limitCheck.reason);
+                return;
+            }
+
+            showLoading(true, "Generating Study Resources", "Connecting to Gemini AI, analyzing text, and generating study resources. This may take a moment...");
+            outputPanel.style.display = 'none';
+            errorBanner.style.display = 'none';
+
+            // Construct system instruction based on learning mode
+            let modePrompt = "";
+            let responseMimeType = "text/plain";
+
+            if (state.selectedMode === 'summary') {
+                modePrompt = "Generate a comprehensive, structured study summary using Markdown. Use clear headings, main takeaways, key definitions, and detailed bullet points.";
+            } else if (state.selectedMode === 'quiz') {
+                modePrompt = `Based on the provided text, generate exactly ${state.quizQuestionCount} interactive multiple-choice questions (MCQs) for study self-evaluation. Return the output STRICTLY as a JSON array of objects with the exact schema: [ { "question": "Question text?", "options": ["Option A", "Option B", "Option C", "Option D"], "answerIndex": 0, "explanation": "Brief explanation of the correct choice" } ]. Ensure answerIndex is a number from 0 to 3.`;
+                responseMimeType = "application/json";
+            } else if (state.selectedMode === 'flashcards') {
+                modePrompt = "Extract 8-15 core concepts or vocabulary terms from the text to generate study flashcards. Return the output STRICTLY as a JSON array of objects with the exact schema: [ { \"front\": \"Key term or brief question\", \"back\": \"Clear definition or model answer\" } ]. Keep front and back concise.";
+                responseMimeType = "application/json";
+            } else if (state.selectedMode === 'examprep') {
+                modePrompt = "Predict 5-8 potential exam questions based on the key topics in the text and write high-scoring model answers for each. Return the output STRICTLY as a JSON array of objects with the exact schema: [ { \"question\": \"Predicted exam question?\", \"answer\": \"Comprehensive model answer detailing key points.\" } ].";
+                responseMimeType = "application/json";
+            }
+
+            // Limit text size to prevent token limits on large PDFs
+            const textSample = state.extractedText.slice(0, 40000); 
+
+            const systemInstruction = `You are an expert tutor. Analyze the following text and perform the requested task. Do not refer to the text as 'the provided text' or 'the document' in your output, talk to the student directly.`;
+
+            const requestPayload = {
+                contents: [
+                    {
+                        parts: [
+                            { text: `${modePrompt}\n\nStudy Material:\n${textSample}` }
+                        ]
+                    }
+                ],
+                systemInstruction: {
+                    parts: [
+                        { text: systemInstruction }
+                    ]
+                },
+                generationConfig: {
+                    temperature: 0.4,
+                    responseMimeType: responseMimeType
+                }
+            };
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${state.apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestPayload)
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error?.message || `HTTP error! status: ${response.status}`);
+                }
+
+                const responseData = await response.json();
+                let outputText = responseData.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (!outputText) {
+                    throw new Error("No response content generated from Gemini API.");
+                }
+
+                // Log request for Estimator
+                logRequest();
+
+                // Parse structured JSON formats
+                let parsedContent = outputText;
+                if (responseMimeType === 'application/json') {
+                    // Clean code blocks if returned
+                    if (outputText.trim().startsWith("```")) {
+                        outputText = outputText.replace(/^```json\s*/i, "").replace(/```\s*$/, "");
+                    }
+                    parsedContent = JSON.parse(outputText.trim());
+                }
+
+                // Store active session in global state
+                state.activeSession = {
+                    id: Date.now().toString(),
+                    title: state.fileName,
+                    timestamp: new Date().toLocaleString(),
+                    mode: state.selectedMode,
+                    content: parsedContent
+                };
+
+                // Save to localStorage history
+                saveSessionToHistory(state.activeSession);
+
+                showLoading(false);
+                renderOutput();
+
+            } catch (err) {
+                showLoading(false);
+                showError("Generation failed: " + err.message + ". Check your API key or connection and try again.");
+            }
+        });
+
+        // --- Render Output Views ---
+
+        function renderOutput() {
+            if (!state.activeSession) return;
+
+            outputPanel.style.display = 'block';
+            outputViewContent.innerHTML = ''; // Reset contents
+
+            const mode = state.activeSession.mode;
+            const content = state.activeSession.content;
+
+            // Page Scroll to outputs
+            setTimeout(() => {
+                outputPanel.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+
+            if (mode === 'summary') {
+                renderSummary(content);
+            } else if (mode === 'quiz') {
+                renderQuiz(content);
+            } else if (mode === 'flashcards') {
+                renderFlashcards(content);
+            } else if (mode === 'examprep') {
+                renderExamPrep(content);
+            }
+        }
+
+        // Summary View Render
+        function renderSummary(markdownText) {
+            const htmlContent = marked.parse(markdownText);
+            outputViewContent.innerHTML = `
+                <div class="summary-view">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.75rem;">
+                        <h2><i class="fa-solid fa-file-invoice"></i> Session Summary</h2>
+                        <button class="btn btn-icon" id="copy-summary-btn" title="Copy to clipboard">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                    <div>${htmlContent}</div>
+                </div>
+            `;
+
+            document.getElementById('copy-summary-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(markdownText).then(() => {
+                    alert("Summary text copied to clipboard!");
+                });
+            });
+        }
+
+        // Interactive Quiz View Render
+        function renderQuiz(questions) {
+            let currentQuestionIdx = 0;
+            let score = 0;
+            let answered = false;
+
+            function showQuestion() {
+                const q = questions[currentQuestionIdx];
+                const progressPct = ((currentQuestionIdx) / questions.length) * 100;
+                
+                outputViewContent.innerHTML = `
+                    <div class="quiz-card">
+                        <div class="quiz-header">
+                            <h3><i class="fa-solid fa-circle-question"></i> Study Quiz</h3>
+                            <div class="quiz-score-badge">Score: ${score}/${questions.length}</div>
+                        </div>
+                        
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: ${progressPct}%"></div>
+                        </div>
+
+                        <div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Question ${currentQuestionIdx + 1} of ${questions.length}</span>
+                            <div class="quiz-question-text" style="margin-top: 0.25rem;">${escapeHtml(q.question)}</div>
+                        </div>
+
+                        <div class="quiz-options">
+                            ${q.options.map((opt, idx) => `
+                                <button class="quiz-option" data-idx="${idx}">
+                                    <span>${escapeHtml(opt)}</span>
+                                    <i class="fa-regular fa-circle"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+
+                        <div class="quiz-feedback" id="quiz-feedback-box">
+                            <h4 id="feedback-title">Correct!</h4>
+                            <p id="feedback-text">${escapeHtml(q.explanation)}</p>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                            <button class="btn btn-primary" id="quiz-next-btn" style="display: none;">
+                                ${currentQuestionIdx === questions.length - 1 ? 'Finish Quiz' : 'Next Question <i class="fa-solid fa-arrow-right"></i>'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Add quiz options listeners
+                document.querySelectorAll('.quiz-option').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if (answered) return;
+                        answered = true;
+
+                        const selectedIdx = parseInt(e.currentTarget.dataset.idx);
+                        const correctIdx = q.answerIndex;
+                        const options = document.querySelectorAll('.quiz-option');
+
+                        options.forEach(opt => opt.classList.add('disabled'));
+
+                        const feedbackBox = document.getElementById('quiz-feedback-box');
+                        const feedbackTitle = document.getElementById('feedback-title');
+                        const nextBtn = document.getElementById('quiz-next-btn');
+
+                        if (selectedIdx === correctIdx) {
+                            e.currentTarget.classList.add('correct');
+                            e.currentTarget.querySelector('i').className = 'fa-solid fa-circle-check';
+                            score++;
+                            feedbackTitle.textContent = "Correct Answer!";
+                            feedbackTitle.style.color = "var(--success)";
+                        } else {
+                            e.currentTarget.classList.add('incorrect');
+                            e.currentTarget.querySelector('i').className = 'fa-solid fa-circle-xmark';
+                            
+                            // Highlight the correct answer
+                            options[correctIdx].classList.add('correct');
+                            options[correctIdx].querySelector('i').className = 'fa-solid fa-circle-check';
+                            
+                            feedbackTitle.textContent = "Incorrect Answer";
+                            feedbackTitle.style.color = "var(--error)";
+                        }
+
+                        // Update Score badge
+                        document.querySelector('.quiz-score-badge').textContent = `Score: ${score}/${questions.length}`;
+
+                        feedbackBox.style.display = 'block';
+                        nextBtn.style.display = 'inline-flex';
+                    });
+                });
+
+                document.getElementById('quiz-next-btn').addEventListener('click', () => {
+                    answered = false;
+                    currentQuestionIdx++;
+                    if (currentQuestionIdx < questions.length) {
+                        showQuestion();
+                    } else {
+                        showCompletionScreen();
+                    }
+                });
+            }
+
+            function showCompletionScreen() {
+                const finalPct = Math.round((score / questions.length) * 100);
+                let message = "Good effort! Review the document and try again to improve your score.";
+                if (finalPct >= 80) {
+                    message = "Outstanding! You've mastered this material.";
+                } else if (finalPct >= 50) {
+                    message = "Great job! You have a solid grasp on the main topics.";
+                }
+
+                outputViewContent.innerHTML = `
+                    <div class="quiz-completion">
+                        <div class="quiz-trophy"><i class="fa-solid fa-trophy"></i></div>
+                        <h2>Quiz Complete!</h2>
+                        <p style="color: var(--text-muted);">${message}</p>
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--text-bright); margin: 1rem 0;">
+                            ${score} <span style="font-size: 1.5rem; color: var(--text-muted); font-weight: 500;">/ ${questions.length}</span>
+                        </div>
+                        <div style="width: 200px; background: rgba(255,255,255,0.05); border-radius: 10px; height: 10px; overflow: hidden; margin-bottom: 1.5rem;">
+                            <div style="width: ${finalPct}%; height: 100%; background: linear-gradient(to right, var(--primary), var(--secondary));"></div>
+                        </div>
+                        <button class="btn btn-primary" id="quiz-restart-btn">
+                            <i class="fa-solid fa-rotate-left"></i> Restart Quiz
+                        </button>
+                    </div>
+                `;
+
+                document.getElementById('quiz-restart-btn').addEventListener('click', () => {
+                    score = 0;
+                    currentQuestionIdx = 0;
+                    answered = false;
+                    showQuestion();
+                });
+            }
+
+            // Start the quiz
+            showQuestion();
+        }
+
+        // Interactive Flashcard View Render
+        function renderFlashcards(cards) {
+            let currentCardIdx = 0;
+
+            function updateCard() {
+                const card = cards[currentCardIdx];
+                const frontFace = document.querySelector('.flashcard-front p');
+                const backFace = document.querySelector('.flashcard-back p');
+                const progressLabel = document.getElementById('flashcard-progress');
+                const cardInner = document.getElementById('flashcard-inner');
+
+                // Reset flip state before updating content
+                cardInner.classList.remove('flipped');
+
+                setTimeout(() => {
+                    frontFace.textContent = card.front;
+                    backFace.textContent = card.back;
+                    progressLabel.textContent = `Card ${currentCardIdx + 1} of ${cards.length}`;
+                }, 150); // slight delay to hide content change during flip reset
+            }
+
+            outputViewContent.innerHTML = `
+                <div class="flashcards-container">
+                    <div style="width: 100%; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.75rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                        <h2><i class="fa-solid fa-clone"></i> Study Flashcards</h2>
+                        <span id="flashcard-progress" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Card 1 of 1</span>
+                    </div>
+
+                    <div class="flashcard-wrapper" id="flashcard-box">
+                        <div class="flashcard" id="flashcard-inner">
+                            <div class="flashcard-face flashcard-front">
+                                <p style="padding: 0 1rem;">Front Side</p>
+                                <span class="flashcard-indicator">Click to Flip</span>
+                            </div>
+                            <div class="flashcard-face flashcard-back">
+                                <p style="padding: 0 1rem;">Back Side</p>
+                                <span class="flashcard-indicator">Click to Flip</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button class="btn btn-icon" id="card-prev-btn" title="Previous Card (Left Arrow)">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Use Arrow Keys or Click</span>
+                        <button class="btn btn-icon" id="card-next-btn" title="Next Card (Right Arrow)">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            const cardInner = document.getElementById('flashcard-inner');
+            const flashcardBox = document.getElementById('flashcard-box');
+            const prevBtn = document.getElementById('card-prev-btn');
+            const nextBtn = document.getElementById('card-next-btn');
+
+            // Flip Action
+            flashcardBox.addEventListener('click', () => {
+                cardInner.classList.toggle('flipped');
+            });
+
+            // Nav actions
+            prevBtn.addEventListener('click', () => {
+                if (currentCardIdx > 0) {
+                    currentCardIdx--;
+                    updateCard();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentCardIdx < cards.length - 1) {
+                    currentCardIdx++;
+                    updateCard();
+                }
+            });
+
+            // Global Key listeners for navigation
+            const keyNavHandler = (e) => {
+                // Ensure output is visible and this is the active mode
+                if (outputPanel.style.display === 'block' && state.activeSession?.mode === 'flashcards') {
+                    if (e.key === 'ArrowRight') {
+                        if (currentCardIdx < cards.length - 1) {
+                            currentCardIdx++;
+                            updateCard();
+                        }
+                    } else if (e.key === 'ArrowLeft') {
+                        if (currentCardIdx > 0) {
+                            currentCardIdx--;
+                            updateCard();
+                        }
+                    } else if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        cardInner.classList.toggle('flipped');
+                    }
+                }
+            };
+
+            // Remove existing listener if any and bind
+            window.removeEventListener('keydown', window.studyforgeKeyHandler);
+            window.studyforgeKeyHandler = keyNavHandler;
+            window.addEventListener('keydown', keyNavHandler);
+
+            // Populate first card
+            updateCard();
+        }
+
+        // Exam Prep View Render
+        function renderExamPrep(questions) {
+            outputViewContent.innerHTML = `
+                <div class="summary-view">
+                    <div style="border-bottom: 1px solid var(--glass-border); padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+                        <h2><i class="fa-solid fa-circle-check"></i> Predicted Exam Questions</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Review key predicted questions and view model answer breakdowns.</p>
+                    </div>
+
+                    <div class="exam-list">
+                        ${questions.map((item, idx) => `
+                            <div class="exam-item" data-idx="${idx}">
+                                <div class="exam-header">
+                                    <div class="exam-question">${idx + 1}. ${escapeHtml(item.question)}</div>
+                                    <div class="exam-toggle-icon"><i class="fa-solid fa-chevron-down"></i></div>
+                                </div>
+                                <div class="exam-answer">
+                                    <div class="exam-answer-content">
+                                        <div style="font-weight: 600; font-size: 0.85rem; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;">Model Answer:</div>
+                                        <p style="white-space: pre-wrap;">${escapeHtml(item.answer)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Accordion toggle events
+            document.querySelectorAll('.exam-item').forEach(item => {
+                item.querySelector('.exam-header').addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Collapse others
+                    document.querySelectorAll('.exam-item').forEach(el => el.classList.remove('active'));
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // --- Session History Storage & Drawers ---
+
+        function saveSessionToHistory(session) {
+            // Keep unique items, remove duplicate filename + mode if it exists to keep history clean
+            state.history = state.history.filter(item => !(item.title === session.title && item.mode === session.mode));
+            
+            // Unshift new session to top of history array
+            state.history.unshift(session);
+            
+            // Cap history at 15 items
+            if (state.history.length > 15) {
+                state.history.pop();
+            }
+
+            localStorage.setItem('studyforge_history', JSON.stringify(state.history));
+        }
+
+        function renderHistoryDrawerList() {
+            historyListContainer.innerHTML = '';
+
+            if (state.history.length === 0) {
+                historyListContainer.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fa-regular fa-folder-open" style="font-size: 2rem; margin-bottom: 0.75rem; display: block;"></i>
+                        No saved sessions found yet. Generate a summary or quiz to begin saving history.
+                    </div>
+                `;
+                return;
+            }
+
+            state.history.forEach((session, index) => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div class="history-meta">
+                        <span>${session.timestamp}</span>
+                        <span class="history-mode-tag">${session.mode}</span>
+                    </div>
+                    <div class="history-title" title="${escapeHtml(session.title)}">${escapeHtml(session.title)}</div>
+                    <button class="history-delete-btn" data-index="${index}" title="Delete session">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+
+                // Load session on clicking card
+                item.addEventListener('click', (e) => {
+                    // Prevent trigger if they click the delete button
+                    if (e.target.closest('.history-delete-btn')) return;
+
+                    state.activeSession = session;
+                    
+                    // Pre-populate document info visual states even if PDF is not reloaded
+                    fileNameLabel.textContent = session.title;
+                    fileSizeLabel.textContent = "Saved Session";
+                    dropZone.style.display = 'none';
+                    fileInfoContainer.style.display = 'flex';
+
+                    // Select correct tab active button
+                    document.querySelectorAll('.mode-btn').forEach(b => {
+                        b.classList.remove('active');
+                        if (b.dataset.mode === session.mode) b.classList.add('active');
+                    });
+                    state.selectedMode = session.mode;
+                    modePanel.style.opacity = '1';
+                    modePanel.style.pointerEvents = 'auto';
+
+                    // Show/hide quiz options container
+                    const quizOpts = document.getElementById('quiz-options-container');
+                    if (state.selectedMode === 'quiz') {
+                        quizOpts.style.display = 'block';
+                    } else {
+                        quizOpts.style.display = 'none';
+                    }
+
+                    // Render output and close history panel
+                    renderOutput();
+                    closeHistory();
+                });
+
+                historyListContainer.appendChild(item);
+            });
+
+            // Bind Delete actions
+            document.querySelectorAll('.history-delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const index = parseInt(e.currentTarget.dataset.index);
+                    state.history.splice(index, 1);
+                    localStorage.setItem('studyforge_history', JSON.stringify(state.history));
+                    renderHistoryDrawerList();
+                });
+            });
+        }
+
+        // --- Helper Utilities ---
+
+        function showLoading(show, title = "", desc = "") {
+            if (show) {
+                loadingStatusTitle.textContent = title;
+                loadingStatusDesc.textContent = desc;
+                loadingPanel.style.display = 'flex';
+            } else {
+                loadingPanel.style.display = 'none';
+            }
+        }
+
+        function updateLoadingMessage(title, desc) {
+            loadingStatusTitle.textContent = title;
+            loadingStatusDesc.textContent = desc;
+        }
+
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorBanner.style.display = 'block';
+            errorBanner.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function escapeHtml(text) {
+            if (typeof text !== 'string') return text;
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
