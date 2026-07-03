@@ -1,65 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="YPFWokyns5PZb9sh0XBztEab9BecnSRUEb0lKE0h50I" />
-    <title>StudyForge AI | Free PDF to Study Guide, Quiz & Flashcard Generator</title>
-    
+    <title>StudyForge AI | Free PDF to Study Guide, Quiz &amp; Flashcard Generator</title>
+
+    <!-- Primary SEO Meta Tags -->
+    <meta name="description" content="Transform any study PDF into custom summaries, interactive quizzes, active recall flashcards, and predicted exam questions instantly. 100% free AI Study Assistant powered by Google Gemini — no login or backend required.">
+    <meta name="keywords" content="pdf study assistant, ai study guide generator, pdf to quiz converter, active recall flashcards, exam prep AI, free ai tutor, studyforge, gemini study tool, study pdf to mcq, pdf flashcard maker, ai quiz generator from pdf">
+    <meta name="author" content="StudyForge AI">
+    <meta name="application-name" content="StudyForge AI">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="StudyForge AI">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="canonical" href="https://studyforge-labs.vercel.app/">
+
     <!-- SVG Emoji Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
-    
-    <!-- SEO Optimization Meta Tags -->
-    <meta name="description" content="Transform any study PDF into custom summaries, interactive quizzes, active recall flashcards, and predicted exam questions instantly. Free client-side AI Study Assistant powered by Google Gemini. No login or backend required.">
-    <meta name="keywords" content="pdf study assistant, ai study guide generator, pdf to quiz converter, active recall flashcards, exam prep helper, free ai tutor, studyforge, gemini study tool, study pdf to mcq">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://studyforge-labs.vercel.app">
-    
-    <!-- Open Graph (Facebook / LinkedIn) SEO Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://studyforge-labs.vercel.app">
-    <meta property="og:title" content="StudyForge AI | Free PDF to Study Guide, Quiz & Flashcard Generator">
-    <meta property="og:description" content="Generate active recall study materials from PDFs instantly with Gemini AI. Flashcards, interactive MCQs, exam predictions. 100% free & secure.">
-    
-    <!-- Twitter Cards SEO Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://studyforge-labs.vercel.app">
-    <meta name="twitter:title" content="StudyForge AI | Free PDF to Study Guide, Quiz & Flashcard Generator">
-    <meta name="twitter:description" content="Generate active recall study materials from PDFs instantly with Gemini AI. Flashcards, interactive MCQs, exam predictions. 100% free & secure.">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 
-    <!-- JSON-LD Structured Data Schema for SEO Google Rich Results -->
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="StudyForge AI">
+    <meta property="og:url" content="https://studyforge-labs.vercel.app/">
+    <meta property="og:title" content="StudyForge AI | Free PDF to Quiz, Flashcard &amp; Study Guide Generator">
+    <meta property="og:description" content="Upload any study PDF and instantly generate interactive quizzes, active recall flashcards, AI summaries &amp; exam prep questions. 100% free, powered by Google Gemini AI.">
+    <meta property="og:image" content="https://studyforge-labs.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="StudyForge AI — Transform PDFs into Quizzes, Flashcards &amp; Summaries">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@studyforgeai">
+    <meta name="twitter:url" content="https://studyforge-labs.vercel.app/">
+    <meta name="twitter:title" content="StudyForge AI | Free PDF to Quiz, Flashcard &amp; Study Guide Generator">
+    <meta name="twitter:description" content="Upload any study PDF and instantly generate interactive quizzes, active recall flashcards, AI summaries &amp; exam prep questions. 100% free, powered by Google Gemini AI.">
+    <meta name="twitter:image" content="https://studyforge-labs.vercel.app/og-image.png">
+    <meta name="twitter:image:alt" content="StudyForge AI — Transform PDFs into Quizzes, Flashcards &amp; Summaries">
+
+    <!-- JSON-LD Structured Data: WebApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "StudyForge AI",
-      "url": "https://studyforge-labs.vercel.app",
-      "description": "Transform study PDFs into summaries, quizzes, flashcards, and exam sheets client-side.",
+      "url": "https://studyforge-labs.vercel.app/",
+      "description": "Transform study PDFs into AI-generated summaries, interactive quizzes, active recall flashcards, and exam prep questions. 100% free, client-side, no login required.",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript and a modern browser",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "image": "https://studyforge-labs.vercel.app/og-image.png",
+      "screenshot": "https://studyforge-labs.vercel.app/og-image.png",
       "featureList": [
-        "Client-side text parsing",
-        "AI study summaries",
-        "Interactive multiple-choice quizzes",
-        "Active recall 3D flashcards",
-        "Predicted exam questions with answers"
+        "PDF text extraction in the browser",
+        "AI-generated study summaries",
+        "Interactive multiple-choice quiz generator",
+        "Active recall 3D flip flashcards",
+        "Predicted exam questions with model answers",
+        "No login or account required",
+        "Client-side privacy — files never uploaded"
       ],
       "offers": {
         "@type": "Offer",
         "price": "0.00",
         "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "StudyForge AI",
+        "url": "https://studyforge-labs.vercel.app/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://studyforge-labs.vercel.app/og-image.png"
+        }
       }
     }
     </script>
-    
+
+    <!-- JSON-LD Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I generate study flashcards and quizzes from a PDF for free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! StudyForge AI is completely free to use. By using your own Gemini API key, you get direct access to AI endpoints without subscription fees. The Gemini API free tier offers up to 1,000 requests per day."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does StudyForge AI support active recall and spaced repetition?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. The Quiz and Flashcard modules are designed around active recall theory — providing instant answer evaluation and interactive 3D flip cards to maximize memory retention and learning efficiency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum PDF file size StudyForge AI supports?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can upload study PDFs up to 15MB. Very long documents are automatically optimized to fit within the Gemini API context window for faster, more accurate generation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my PDF data safe and private with StudyForge AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your files are processed entirely in your browser using PDF.js. Your documents are never uploaded to any external server. Only the extracted text is sent to Google's official Gemini API. Your API key is stored encrypted in your browser's localStorage only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get a free Gemini API key for StudyForge AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Visit Google AI Studio at aistudio.google.com, log in with a Google account, click 'Get API Key', then 'Create API Key'. Copy the generated key and paste it into StudyForge AI. It's 100% free for students and developers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What study modes does StudyForge AI offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "StudyForge AI offers four study modes: (1) AI Summary — structured markdown notes from your PDF, (2) Interactive Quiz — multiple-choice questions with instant feedback, (3) Flashcards — 3D active recall flip cards, and (4) Exam Prep — predicted exam questions with detailed model answers."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "StudyForge AI",
+          "item": "https://studyforge-labs.vercel.app/"
+        }
+      ]
+    }
+    </script>
+
     <!-- Google Fonts: Outfit (headings) & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- FontAwesome Icons for modern visuals -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- PDF.js CDN for client-side PDF parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
@@ -993,6 +1099,457 @@
                 justify-content: space-between;
             }
         }
+
+        /* =============================================
+           SEO LANDING PAGE STYLES
+           ============================================= */
+
+        /* Landing section wrapper */
+        .seo-landing {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 5rem 1rem 3rem;
+            position: relative;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: #fff;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-h1 .gradient-text {
+            background: linear-gradient(135deg, #818cf8, #c084fc, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.75;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary:hover {
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.07);
+            transform: translateY(-2px);
+        }
+
+        /* Trust badges strip */
+        .trust-strip {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .trust-badge i {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+
+        /* Section Titles */
+        .section-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #818cf8;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 540px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        /* Features Grid */
+        .features-section {
+            scroll-margin-top: 80px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.35rem;
+            color: #a5b4fc;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-section {
+            scroll-margin-top: 80px;
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            list-style: none;
+            counter-reset: steps;
+            max-width: 680px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .step-item:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+        }
+
+        .step-body h3 {
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 0.35rem;
+        }
+
+        .step-body p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            scroll-margin-top: 80px;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .faq-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.25s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(99,102,241,0.3);
+        }
+
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            color: #e5e7eb;
+            font-size: 0.975rem;
+            user-select: none;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary .faq-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(99,102,241,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #818cf8;
+            font-size: 0.7rem;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .faq-item[open] summary .faq-icon {
+            transform: rotate(45deg);
+            background: rgba(99,102,241,0.3);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1rem;
+        }
+
+        /* Site Footer */
+        .site-footer {
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 3rem 1.5rem 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand-col .footer-brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand-col p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            max-width: 280px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #818cf8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #a5b4fc;
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-privacy-note {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .footer-privacy-note i {
+            color: #10b981;
+        }
+
+        @media (max-width: 768px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .trust-strip {
+                gap: 1rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1168,6 +1725,267 @@
         </div>
 
     </div>
+
+    <!-- ============================================================
+         SEO LANDING PAGE CONTENT
+         This section is always crawlable by search engines.
+         It provides rich text content for Google indexing.
+         ============================================================ -->
+    <main id="seo-landing" class="seo-landing" aria-label="StudyForge AI Features and Information">
+
+        <!-- HERO SECTION -->
+        <section class="hero-section" aria-labelledby="hero-heading">
+            <div class="hero-eyebrow">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Powered by Google Gemini AI
+            </div>
+            <h1 class="hero-h1" id="hero-heading">
+                Turn Any PDF Into <span class="gradient-text">Smart Study Materials</span> — Instantly
+            </h1>
+            <p class="hero-desc">
+                StudyForge AI is a free, browser-based study assistant that transforms your PDF lecture notes, textbooks, and study guides into interactive quizzes, active recall flashcards, AI summaries, and predicted exam questions — all powered by Google Gemini AI. No login. No uploads. 100% private.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#app-section" class="cta-primary" id="hero-start-btn" aria-label="Start using StudyForge AI now">
+                    <i class="fa-solid fa-rocket"></i>
+                    Start Studying Free
+                </a>
+                <a href="#features" class="cta-secondary" id="hero-features-btn" aria-label="Learn about StudyForge AI features">
+                    <i class="fa-solid fa-list"></i>
+                    See Features
+                </a>
+            </div>
+            <div class="trust-strip" role="list" aria-label="Trust indicators">
+                <div class="trust-badge" role="listitem">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <span>100% Free</span>
+                </div>
+                <div class="trust-badge" role="listitem">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <span>No Login Required</span>
+                </div>
+                <div class="trust-badge" role="listitem">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <span>Files Never Uploaded</span>
+                </div>
+                <div class="trust-badge" role="listitem">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <span>Works on Any PDF</span>
+                </div>
+                <div class="trust-badge" role="listitem">
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <span>No Subscription</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="features-section" aria-labelledby="features-heading">
+            <p class="section-eyebrow">What You Get</p>
+            <h2 class="section-title" id="features-heading">Four Powerful Study Modes</h2>
+            <p class="section-subtitle">
+                Upload any study PDF and choose how you want to learn. StudyForge AI generates rich, topic-accurate content from your exact material — not generic content.
+            </p>
+            <div class="features-grid" role="list">
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-list-ul"></i></div>
+                    <h3>AI Study Summaries</h3>
+                    <p>Get a structured, markdown-formatted summary of any PDF. Key concepts, definitions, and important points are extracted and organized for fast review. Perfect for lecture notes and textbooks.</p>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-circle-question"></i></div>
+                    <h3>Interactive Quiz Generator</h3>
+                    <p>Generate 10, 20, or 30 multiple-choice questions directly from your PDF content. Each question has instant answer feedback and explanations — ideal for active recall practice and exam rehearsal.</p>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-clone"></i></div>
+                    <h3>Active Recall Flashcards</h3>
+                    <p>Study smarter with 3D flip flashcards generated from your document. Based on proven active recall and spaced repetition principles to maximize long-term memory retention.</p>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></div>
+                    <h3>Exam Prep Questions</h3>
+                    <p>Get AI-predicted exam questions with detailed model answers based on your study material. Expand each question to reveal the answer — perfect for final exam preparation and revision.</p>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>100% Client-Side Privacy</h3>
+                    <p>Your PDF files are parsed locally in your browser using PDF.js. Your documents are never transmitted to any server. Only extracted text reaches the Gemini API — your files stay private.</p>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true"><i class="fa-solid fa-history"></i></div>
+                    <h3>Session History</h3>
+                    <p>All generated study sessions are automatically saved to your browser's local storage. Revisit past quizzes, flashcard decks, and summaries any time without regenerating them.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS SECTION -->
+        <section id="how-it-works" class="how-section" aria-labelledby="how-heading">
+            <p class="section-eyebrow">Getting Started</p>
+            <h2 class="section-title" id="how-heading">How to Use StudyForge AI</h2>
+            <p class="section-subtitle">Generate your first study session in under 60 seconds.</p>
+            <ol class="steps-list" aria-label="Step-by-step guide to using StudyForge AI">
+                <li class="step-item">
+                    <div class="step-number" aria-hidden="true">1</div>
+                    <div class="step-body">
+                        <h3>Get Your Free Gemini API Key</h3>
+                        <p>Visit <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Google AI Studio</a>, sign in with a Google account, and generate a free API key. The Gemini free tier provides up to 1,000 AI requests per day — more than enough for daily studying.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number" aria-hidden="true">2</div>
+                    <div class="step-body">
+                        <h3>Enter Your API Key</h3>
+                        <p>Click the "API Key" button in the top header. Paste your Gemini API key and click Save. Your key is stored securely in your browser's local storage and never shared.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number" aria-hidden="true">3</div>
+                    <div class="step-body">
+                        <h3>Upload a Study PDF</h3>
+                        <p>Drag and drop any PDF document — lecture slides, textbook chapters, revision notes — onto the upload zone. Files up to 15MB are supported. Your file is read locally and never uploaded.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number" aria-hidden="true">4</div>
+                    <div class="step-body">
+                        <h3>Choose a Study Mode</h3>
+                        <p>Select from Summary, Quiz, Flashcards, or Exam Prep mode. For Quiz mode, pick the number of questions (10, 20, or 30). Each mode generates content specifically tailored to your uploaded document.</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number" aria-hidden="true">5</div>
+                    <div class="step-body">
+                        <h3>Generate &amp; Study</h3>
+                        <p>Click "Generate Session" and let Gemini AI process your document. In seconds, you'll have interactive study materials personalized to your exact content. Sessions are saved automatically for future use.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="faq-section" aria-labelledby="faq-heading">
+            <p class="section-eyebrow">FAQ</p>
+            <h2 class="section-title" id="faq-heading">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything you need to know about StudyForge AI.</p>
+            <div class="faq-list">
+
+                <details class="faq-item">
+                    <summary>
+                        Can I generate study flashcards and quizzes from a PDF completely free?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        Yes! StudyForge AI is completely free to use. By supplying your own Gemini API key, you access Google's AI infrastructure directly without any subscription costs. The Gemini API free tier allows up to 1,000 requests per day and 15 requests per minute — more than enough for daily studying.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        Does StudyForge AI support active recall and spaced repetition?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        Absolutely. The Quiz and Flashcard modes are built specifically around active recall principles — the scientifically proven method for improving memory retention. The 3D flip flashcards and instant-feedback quiz system help you test yourself on material rather than passively re-reading, which research shows dramatically improves long-term recall.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        Is my PDF data safe? Are my files uploaded anywhere?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        Your PDF files are 100% private. All file processing happens locally in your browser using PDF.js — no file data is ever sent to any server. Only the plain extracted text from the PDF is sent to Google's official Gemini API to generate study materials. Your API key is stored only in your browser's local storage, never on external databases.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        What is the maximum PDF file size I can upload?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        You can upload study PDFs up to 15MB in size. For very long documents, StudyForge AI automatically trims the extracted text to fit within the Gemini API context window while preserving the most relevant content. This ensures fast, accurate generation even for long textbook chapters.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        How do I get a free Google Gemini API key?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        Getting a free Gemini API key takes under 2 minutes: (1) Go to <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" style="color: #818cf8;">Google AI Studio</a>. (2) Log in with any Google account. (3) Click "Get API Key" in the top left. (4) Click "Create API Key", select a project, and copy your key. Paste it into StudyForge AI's API Key field. It's completely free for students and developers.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        What kinds of PDFs work best with StudyForge AI?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        StudyForge AI works best with text-based PDFs such as lecture slides, textbook chapters, academic papers, revision notes, and course handouts. PDFs that consist primarily of scanned images or handwritten notes may not extract text well, as the tool uses PDF.js for client-side text extraction rather than OCR.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        Can I access my previous study sessions?
+                        <span class="faq-icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        Yes. All generated study sessions — quizzes, flashcards, summaries, and exam prep sets — are automatically saved to your browser's local storage. Click the "Sessions" button in the header to open the history drawer and reload any past session instantly.
+                    </div>
+                </details>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SITE FOOTER -->
+    <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+        <div class="footer-inner">
+            <div class="footer-brand-col">
+                <p class="footer-brand-name">
+                    <i class="fa-solid fa-graduation-cap" style="color: #818cf8; margin-right: 0.4rem;"></i>StudyForge AI
+                </p>
+                <p>A free, client-side AI study assistant that transforms PDFs into quizzes, flashcards, summaries, and exam prep materials using Google Gemini AI. No account needed.</p>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-lock"></i>
+                    <span style="font-size: 0.8rem;">Files processed locally — never uploaded</span>
+                </div>
+            </div>
+            <nav class="footer-col" aria-label="Features navigation">
+                <h4>Features</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">AI Study Summaries</a></li>
+                    <li><a href="#features">Quiz Generator</a></li>
+                    <li><a href="#features">Flashcard Maker</a></li>
+                    <li><a href="#features">Exam Prep</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-col" aria-label="Resources navigation">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer">Get API Key</a></li>
+                    <li><a href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener noreferrer">Gemini API Docs</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 StudyForge AI. All rights reserved.</span>
+            <span class="footer-privacy-note">
+                <i class="fa-solid fa-shield-halved"></i>
+                Your study files are never stored or shared. 100% private &amp; secure.
+            </span>
+        </div>
+    </footer>
 
     <!-- History Slideout Drawer overlay and frame -->
     <div class="drawer-overlay" id="drawer-overlay"></div>
