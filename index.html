@@ -11,6 +11,7 @@
     <meta name="author" content="StudyForge AI">
     <meta name="application-name" content="StudyForge AI">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <script>if(location.hostname.includes('github.io')){const m=document.createElement('meta');m.name='robots';m.content='noindex';document.head.appendChild(m)}</script>
     <meta name="theme-color" content="#6366f1">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1558,178 +1559,8 @@
     <div class="ambient-glow"></div>
     <div class="ambient-glow-2"></div>
 
-    <div class="container">
-        
-        <!-- App Header -->
-        <header>
-            <div class="brand">
-                <div class="brand-logo">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div class="brand-info">
-                    <h1 class="brand-title">StudyForge AI</h1>
-                </div>
-            </div>
-            
-            <div class="header-actions">
-                <button class="btn" id="open-guide-btn" title="How It Works & Hosting Guide">
-                    <i class="fa-solid fa-circle-info"></i> Guide
-                </button>
-                <button class="btn" id="toggle-settings-btn" title="API Settings">
-                    <i class="fa-solid fa-key"></i> API Key
-                </button>
-                <button class="btn" id="open-history-btn">
-                    <i class="fa-solid fa-history"></i> Sessions
-                </button>
-            </div>
-        </header>
-
-        <!-- API Settings Drawer -->
-        <div class="glass-panel settings-bar" id="settings-panel">
-            <h4><i class="fa-solid fa-shield-halved"></i> Google Gemini API Settings</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-                The application requires a Gemini API Key. You can update or replace it here:
-            </p>
-            <div class="settings-input-container" style="margin-bottom: 1rem;">
-                <input type="password" class="input-text" id="api-key-input" placeholder="Enter Gemini API Key..." />
-                <button class="btn btn-primary" id="save-key-btn">Save Key</button>
-            </div>
-
-            <!-- Rate Limit Estimator -->
-            <div class="rate-limit-estimator" style="border-top: 1px solid var(--glass-border); padding-top: 1rem;">
-                <h5 style="color: var(--text-bright); margin-bottom: 0.5rem;"><i class="fa-solid fa-gauge-high"></i> Estimated API Usage (Gemini Free Tier)</h5>
-                <div style="margin-bottom: 0.5rem;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-                        <span>Minute Limit (15 RPM)</span>
-                        <span id="rate-rpm-label">0 / 15 reqs</span>
-                    </div>
-                    <div class="progress-bar-container" style="height: 6px; background: rgba(255,255,255,0.02);">
-                        <div id="rate-rpm-bar" class="progress-bar-fill" style="width: 0%; background: var(--accent);"></div>
-                    </div>
-                </div>
-                <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-                        <span>Daily Limit (1,000 RPD)</span>
-                        <span id="rate-rpd-label">0 / 1000 reqs</span>
-                    </div>
-                    <div class="progress-bar-container" style="height: 6px; background: rgba(255,255,255,0.02);">
-                        <div id="rate-rpd-bar" class="progress-bar-fill" style="width: 0%; background: var(--primary);"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- File Upload Area -->
-        <div class="glass-panel" id="upload-panel">
-            <div class="upload-zone" id="drop-zone">
-                <input type="file" id="file-input" accept="application/pdf" style="display: none;" />
-                <div class="upload-icon">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                </div>
-                <div class="upload-text">
-                    <h3>Drag & Drop Study Document</h3>
-                    <p>Or click to browse from device (PDF only, up to 15MB)</p>
-                </div>
-            </div>
-
-            <!-- Uploaded File Info -->
-            <div class="file-info" id="file-info-container">
-                <div class="file-details">
-                    <i class="fa-solid fa-file-pdf"></i>
-                    <div>
-                        <h4 id="file-name-label">document.pdf</h4>
-                        <p id="file-size-label" style="font-size: 0.75rem; color: var(--text-muted);">2.4 MB</p>
-                    </div>
-                </div>
-                <button class="btn btn-icon" id="remove-file-btn" title="Remove Document" style="border: none; color: var(--error);">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Study Mode Panel -->
-        <div class="glass-panel mode-container" id="mode-panel" style="opacity: 0.5; pointer-events: none;">
-            <h3>Select Learning Mode</h3>
-            
-            <div class="mode-buttons">
-                <button class="mode-btn active" data-mode="summary">
-                    <i class="fa-solid fa-list-ul"></i>
-                    <span>Summary</span>
-                </button>
-                <button class="mode-btn" data-mode="quiz">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <span>Quiz</span>
-                </button>
-                <button class="mode-btn" data-mode="flashcards">
-                    <i class="fa-solid fa-clone"></i>
-                    <span>Flashcards</span>
-                </button>
-                <button class="mode-btn" data-mode="examprep">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Exam Prep</span>
-                </button>
-            </div>
-
-            <!-- Dynamic Mode Options (Visible when Quiz mode is active) -->
-            <div id="quiz-options-container" style="display: none; animation: fadeIn 0.3s ease; margin-top: 1rem; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
-                <label style="font-weight: 600; color: var(--text-main); font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">
-                    <i class="fa-solid fa-sliders"></i> Number of Quiz Questions:
-                </label>
-                <div style="display: flex; gap: 0.5rem; max-width: 300px;">
-                    <button class="btn btn-primary q-count-btn" data-count="10">10 Qs</button>
-                    <button class="btn q-count-btn" data-count="20">20 Qs</button>
-                    <button class="btn q-count-btn" data-count="30">30 Qs</button>
-                </div>
-            </div>
-
-            <div class="action-box">
-                <button class="btn btn-primary" id="generate-btn">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Session
-                </button>
-            </div>
-        </div>
-
-        <!-- Error Banner -->
-        <div class="error-banner" id="error-banner">
-            <div class="error-banner-content">
-                <div class="error-message">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span id="error-text">An error occurred. Please try again.</span>
-                </div>
-                <button class="btn btn-icon" id="dismiss-error-btn" style="border: none; background: none; color: inherit; padding: 0;">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Loading State Panel -->
-        <div class="glass-panel loading-container" id="loading-panel">
-            <div class="spinner"></div>
-            <div style="width: 100%; text-align: center;">
-                <h4 style="margin-bottom: 0.5rem;" id="loading-status-title">Processing PDF Text...</h4>
-                <p style="color: var(--text-muted); font-size: 0.85rem;" id="loading-status-desc">Reading pages. Please do not close this window.</p>
-            </div>
-            <div style="width: 100%; margin-top: 1rem;">
-                <div class="skeleton-block skeleton-title"></div>
-                <div class="skeleton-block"></div>
-                <div class="skeleton-block"></div>
-                <div class="skeleton-block" style="width: 80%;"></div>
-            </div>
-        </div>
-
-        <!-- Main Output Panel -->
-        <div class="glass-panel output-container" id="output-panel">
-            <div id="output-view-content">
-                <!-- Content injected dynamically via Javascript -->
-            </div>
-        </div>
-
-    </div>
-
     <!-- ============================================================
-         SEO LANDING PAGE CONTENT
-         This section is always crawlable by search engines.
-         It provides rich text content for Google indexing.
+         SEO LANDING PAGE CONTENT (placed first for optimal crawling)
          ============================================================ -->
     <main id="seo-landing" class="seo-landing" aria-label="StudyForge AI Features and Information">
 
@@ -1945,6 +1776,174 @@
         </section>
 
     </main>
+
+    <div class="container" id="app-section">
+        
+        <!-- App Header -->
+        <header>
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="brand-info">
+                    <h1 class="brand-title">StudyForge AI</h1>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn" id="open-guide-btn" title="How It Works & Hosting Guide">
+                    <i class="fa-solid fa-circle-info"></i> Guide
+                </button>
+                <button class="btn" id="toggle-settings-btn" title="API Settings">
+                    <i class="fa-solid fa-key"></i> API Key
+                </button>
+                <button class="btn" id="open-history-btn">
+                    <i class="fa-solid fa-history"></i> Sessions
+                </button>
+            </div>
+        </header>
+
+        <!-- API Settings Drawer -->
+        <div class="glass-panel settings-bar" id="settings-panel">
+            <h4><i class="fa-solid fa-shield-halved"></i> Google Gemini API Settings</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                The application requires a Gemini API Key. You can update or replace it here:
+            </p>
+            <div class="settings-input-container" style="margin-bottom: 1rem;">
+                <input type="password" class="input-text" id="api-key-input" placeholder="Enter Gemini API Key..." />
+                <button class="btn btn-primary" id="save-key-btn">Save Key</button>
+            </div>
+
+            <!-- Rate Limit Estimator -->
+            <div class="rate-limit-estimator" style="border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                <h5 style="color: var(--text-bright); margin-bottom: 0.5rem;"><i class="fa-solid fa-gauge-high"></i> Estimated API Usage (Gemini Free Tier)</h5>
+                <div style="margin-bottom: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                        <span>Minute Limit (15 RPM)</span>
+                        <span id="rate-rpm-label">0 / 15 reqs</span>
+                    </div>
+                    <div class="progress-bar-container" style="height: 6px; background: rgba(255,255,255,0.02);">
+                        <div id="rate-rpm-bar" class="progress-bar-fill" style="width: 0%; background: var(--accent);"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+                        <span>Daily Limit (1,000 RPD)</span>
+                        <span id="rate-rpd-label">0 / 1000 reqs</span>
+                    </div>
+                    <div class="progress-bar-container" style="height: 6px; background: rgba(255,255,255,0.02);">
+                        <div id="rate-rpd-bar" class="progress-bar-fill" style="width: 0%; background: var(--primary);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Upload Area -->
+        <div class="glass-panel" id="upload-panel">
+            <div class="upload-zone" id="drop-zone">
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;" />
+                <div class="upload-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div class="upload-text">
+                    <h3>Drag & Drop Study Document</h3>
+                    <p>Or click to browse from device (PDF only, up to 15MB)</p>
+                </div>
+            </div>
+
+            <!-- Uploaded File Info -->
+            <div class="file-info" id="file-info-container">
+                <div class="file-details">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <div>
+                        <h4 id="file-name-label">document.pdf</h4>
+                        <p id="file-size-label" style="font-size: 0.75rem; color: var(--text-muted);">2.4 MB</p>
+                    </div>
+                </div>
+                <button class="btn btn-icon" id="remove-file-btn" title="Remove Document" style="border: none; color: var(--error);">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Study Mode Panel -->
+        <div class="glass-panel mode-container" id="mode-panel" style="opacity: 0.5; pointer-events: none;">
+            <h3>Select Learning Mode</h3>
+            
+            <div class="mode-buttons">
+                <button class="mode-btn active" data-mode="summary">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>Summary</span>
+                </button>
+                <button class="mode-btn" data-mode="quiz">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Quiz</span>
+                </button>
+                <button class="mode-btn" data-mode="flashcards">
+                    <i class="fa-solid fa-clone"></i>
+                    <span>Flashcards</span>
+                </button>
+                <button class="mode-btn" data-mode="examprep">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Exam Prep</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Mode Options (Visible when Quiz mode is active) -->
+            <div id="quiz-options-container" style="display: none; animation: fadeIn 0.3s ease; margin-top: 1rem; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                <label style="font-weight: 600; color: var(--text-main); font-size: 0.95rem; display: block; margin-bottom: 0.5rem;">
+                    <i class="fa-solid fa-sliders"></i> Number of Quiz Questions:
+                </label>
+                <div style="display: flex; gap: 0.5rem; max-width: 300px;">
+                    <button class="btn btn-primary q-count-btn" data-count="10">10 Qs</button>
+                    <button class="btn q-count-btn" data-count="20">20 Qs</button>
+                    <button class="btn q-count-btn" data-count="30">30 Qs</button>
+                </div>
+            </div>
+
+            <div class="action-box">
+                <button class="btn btn-primary" id="generate-btn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Session
+                </button>
+            </div>
+        </div>
+
+        <!-- Error Banner -->
+        <div class="error-banner" id="error-banner">
+            <div class="error-banner-content">
+                <div class="error-message">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="error-text">An error occurred. Please try again.</span>
+                </div>
+                <button class="btn btn-icon" id="dismiss-error-btn" style="border: none; background: none; color: inherit; padding: 0;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading State Panel -->
+        <div class="glass-panel loading-container" id="loading-panel">
+            <div class="spinner"></div>
+            <div style="width: 100%; text-align: center;">
+                <h4 style="margin-bottom: 0.5rem;" id="loading-status-title">Processing PDF Text...</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;" id="loading-status-desc">Reading pages. Please do not close this window.</p>
+            </div>
+            <div style="width: 100%; margin-top: 1rem;">
+                <div class="skeleton-block skeleton-title"></div>
+                <div class="skeleton-block"></div>
+                <div class="skeleton-block"></div>
+                <div class="skeleton-block" style="width: 80%;"></div>
+            </div>
+        </div>
+
+        <!-- Main Output Panel -->
+        <div class="glass-panel output-container" id="output-panel">
+            <div id="output-view-content">
+                <!-- Content injected dynamically via Javascript -->
+            </div>
+        </div>
+
+    </div>
 
     <!-- SITE FOOTER -->
     <footer class="site-footer" role="contentinfo" aria-label="Site footer">
